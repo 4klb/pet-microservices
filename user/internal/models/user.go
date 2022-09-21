@@ -4,6 +4,7 @@ import (
 	"time"
 
 	uuid "github.com/satori/go.uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 //User ..
@@ -15,4 +16,15 @@ type User struct {
 	Password  string     `json:"password" validate:"required,min=6,max=18"`
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
+}
+
+func (u *User) HashPassword() error {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
+	u.Password = string(hashedPassword)
+
+	return nil
 }
