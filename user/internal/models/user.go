@@ -35,5 +35,3 @@ func (u *User) ComparePasswords(password string) error {
 	}
 	return nil
 }
-
-//option go_package = "proto/pb;userService";
