@@ -28,3 +28,10 @@ func (u *User) HashPassword() error {
 
 	return nil
 }
+
+func (u *User) ComparePasswords(password string) error {
+	if err := bcrypt.ComparePasswords([]byte(u.Password), []byte(password)); err != nil {
+		return nil
+	}
+	return nil
+}
